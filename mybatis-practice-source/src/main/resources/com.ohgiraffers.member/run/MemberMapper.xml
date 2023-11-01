@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.member.run.MemberMapper">
+    <resultMap id="memberResultMap" type="com.ohgiraffers.member.run.MemberDTO">
+        <id property="memberNo" column="memberNo"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="address" column="address"/>
+        <result property="phoneNum" column="phoneNum"/>
+    </resultMap>
+
+    <select id="selectAllMember" resultMap="memberResultMap">
+        SELECT
+            memberNo,
+            name,
+            age,
+            address,
+            phoneNum
+        FROM
+            member
+    </select>
+
+    <select id="selectMemberByCode" parameterType="_int" resultMap="memberResultMap">
+        SELECT
+            memberNo,
+            name,
+            age,
+            address,
+            phoneNum
+        FROM
+            member
+        WHERE memberNo=#{memberNo}
+
+    </select>
+
+    <insert id="insertMember" parameterType="com.ohgiraffers.member.run.MemberDTO">
+        INSERT
+            INTO member(
+                        name,
+                        age,
+                        address,
+                        phoneNum
+                        )
+        VALUES(
+                #{name},
+                #{age},
+                #{address},
+                #{phoneNum}
+                )
+    </insert>
+
+    <update id="updateMember">
+        UPDATE member
+        SET     name=#{name},
+                age=#{age},
+                address=#{address},
+                phoneNum=#{phoneNum}
+        WHERE memberNo=#{memberNo}
+    </update>
+
+    <delete id="deleteMember">
+        DELETE
+            FROM member
+        WHERE memberNo=#{memberNo}
+    </delete>
+
+</mapper>
